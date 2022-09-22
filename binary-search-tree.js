@@ -45,7 +45,7 @@ class BinarySearchTree {
   /** insertRecursively(val): Insert a new node into the BST with value val.
    * Returns the tree. Uses recursion. */
 
-  insertRecursively(val, node=this.root) {
+  insertRecursively(val, node = this.root) {
 
     if (!this.root) {
       this.root = new Node(val);
@@ -87,7 +87,7 @@ class BinarySearchTree {
   /** findRecursively(val): Search the tree for a node with value val.
    * Return the node, if found; else undefined. Uses recursion. */
 
-  findRecursively(val, node=this.root) {
+  findRecursively(val, node = this.root) {
     if (!node) return;
 
     if (val === node.val) return node;
@@ -99,7 +99,7 @@ class BinarySearchTree {
   /** dfsPreOrder(): Traverse the array using pre-order DFS.
    * Return an array of visited nodes. */
 
-  dfsPreOrder(node=this.root, out=[]) {
+  dfsPreOrder(node = this.root, out = []) {
     if (!node) return out;
 
     out.push(node.val);
@@ -112,7 +112,7 @@ class BinarySearchTree {
   /** dfsInOrder(): Traverse the array using in-order DFS.
    * Return an array of visited nodes. */
 
-  dfsInOrder(node=this.root, out=[]) {
+  dfsInOrder(node = this.root, out = []) {
     if (!node) return out;
 
     this.dfsInOrder(node.left, out);
@@ -125,7 +125,7 @@ class BinarySearchTree {
   /** dfsPostOrder(): Traverse the array using post-order DFS.
    * Return an array of visited nodes. */
 
-  dfsPostOrder(node=this.root, out=[]) {
+  dfsPostOrder(node = this.root, out = []) {
     if (!node) return out;
 
     this.dfsPostOrder(node.left, out);
@@ -139,7 +139,19 @@ class BinarySearchTree {
    * Return an array of visited nodes. */
 
   bfs() {
+    let node = this.root;
+    let queue = [];
+    let array = [];
 
+    if (node) queue.push(node);
+
+    while (queue.length) {
+      node = queue.shift();
+      array.push(node.val);
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+    return array;
   }
 
   /** findSuccessorNode(): Find the node with the next largest value.
@@ -147,6 +159,15 @@ class BinarySearchTree {
 
   findSuccessorNode(node) {
 
+    let next = node.right;
+
+    if (!next) return undefined;
+
+    while (next.left) {
+      next = next.left;
+    }
+
+    return next;
   }
 
   /** Further Study!
